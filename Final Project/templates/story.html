@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Story</title>
+    <style>
+        body {
+            background-color: #f9f7f1;
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .story-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .prompt {
+            font-style: italic;
+            margin-bottom: 30px; 
+            color: #555;
+        }
+        .story {
+            margin-top: 20px; 
+            line-height: 1.6; 
+            text-align: left; 
+        }
+        .button-container {
+            margin-top: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #flash-messages {
+            margin-top: 20px;
+            color: #d9534f; 
+        }
+    </style>
+</head>
+<body>
+    <div class="story-container">
+        <h1>Your Generated Story</h1>
+        <div class="prompt">
+            <p><em>{{ prompt }}</em></p>
+        </div>
+        <div class="story">
+            {% for paragraph in story.split('\n\n') %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
+        </div>
+        <div class="button-container">
+            <form action="{{ url_for('continue_story') }}" method="POST">
+                <button type="submit">Continue Story</button>
+            </form>
+            <form action="{{ url_for('save_story') }}" method="POST">
+                <button type="submit">Save Story</button>
+            </form>
+            <form action="{{ url_for('download_story') }}" method="GET">
+                <button type="submit">Download Story</button>
+            </form>
+            <form action="/" method="GET">
+                <button type="submit">Return to Homepage</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

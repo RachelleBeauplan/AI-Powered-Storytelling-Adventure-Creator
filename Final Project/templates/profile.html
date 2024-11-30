@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .story-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .story {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .story:last-child {
+            border-bottom: none;
+        }
+        .story p {
+            margin: 0;
+            padding: 5px 0;
+            flex: 1;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .action-button {
+            display: inline-block;
+            padding: 8px 12px;
+            font-size: 0.9em;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .download-button {
+            background-color: #28a745;
+        }
+        .download-button:hover {
+            background-color: #218838;
+        }
+        .delete-button {
+            background-color: #dc3545;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .no-stories {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Saved Stories</h1>
+    <div class="story-container">
+        {% if stories %}
+            {% for story_id, story in stories %}
+                <div class="story">
+                    <p><strong>Story {{ story_id }}:</strong> {{ story[:200] }}...</p> 
+                    <div class="button-container">
+                        <a href="{{ url_for('download_saved_story', story_id=story_id) }}" class="action-button download-button">Download</a>
+                        <a href="{{ url_for('delete_saved_story', story_id=story_id) }}" class="action-button delete-button">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-stories">You have no saved stories.</p>
+        {% endif %}
+
+         <div class="button-container">
+            <form action="/" method="GET">
+                <button type="submit">Return to Homepage</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

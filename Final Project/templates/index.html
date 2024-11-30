@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Generator</title>
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin: 20px 0;
+        }
+
+
+
+        .navbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1em;
+            color: white;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #45a049;
+        }
+
+
+
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .image-gallery img {
+            width: 250px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .story-form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .story-form label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #333;
+        }
+
+        .story-form select, 
+        .story-form input[type="text"], 
+        .story-form input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .story-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .story-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('profile') }}" class="nav-button">Profile</a>
+            <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="nav-button">Login</a>
+            <a href="{{ url_for('register') }}" class="nav-button">Register</a>
+        {% endif %}
+    </div>
+
+
+
+    <h1>Welcome to the Story Generator</h1>
+
+
+    <div class="image-gallery">
+        <img src="https://images.unsplash.com/photo-1598646470058-34b001098987?q=80&w=3584&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Story Image 1">
+        <img src="https://images.unsplash.com/photo-1612969307974-ee4e57d2d5a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHN0b3J5dGVsbGluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="Story Image 2">
+        <img src="https://images.unsplash.com/photo-1638277294704-507f355ce75e?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Story Image 3">
+    </div>
+
+    <!-- Story generator form -->
+    <div class="story-form">
+        <form action="/generate_story" method="POST">
+            <label for="genre">Choose a Genre:</label>
+            <select id="genre" name="genre">
+                <option value="fantasy">Fantasy</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="mystery">Mystery</option>
+                <option value="romance">Romance</option>
+                <option value="horror">Horror</option>
+            </select>
+
+            <label for="character">Create a Character:</label>
+            <input type="text" id="character" name="character" required>
+
+            <label for="setting">Setting (optional):</label>
+            <input type="text" id="setting" name="setting"><br><br>
+
+            <input type="submit" value="Generate Story">
+        </form>
+    </div>
+</body>
+
+</html>
